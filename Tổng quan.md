@@ -1,19 +1,16 @@
+## Phần 1: Tổng quan về Rancher
 
-##1. Tổng quan về Rancher
-Rancher là một nền tảng phần mềm mã nguồn mở mà thực hiện một cơ sở hạ tầng được xây dựng cho mục đích chạy container trên production. Các Docker container, như là một khối lượng công việc ứng dụng càng ngày phổ biến, tạo ra các yêu cầu mới trong các dịch vụ cơ sở hạ tầng như hệ thống mạng, lưu trữ, cân bằng tải, an ninh, phát hiện dịch vụ và quản lý tài nguyên.
+Rancher là một nền tảng phần mềm mã nguồn ở được bật cho các tổ chức để chạy các container trong production. Với Rancher, các tổ chức không tón nhiều công sức để build một container services platform từ scratch sử dụng một bộ phân biệt các công nghệ mở. Rancher cung cấp toàn bộ các chồng phần mềm cần thiết để quản lý containers trong production
 
-##2. Tính toán tài nguyên
-Rancher trong tính toán tài nguyên thô từ bất kì public hay private cloud dưới dạng các máy chủ Linux. Mỗi máy chủ Linux có thể là một máy ảo hay một máy vật lý. Rancher không yêu cầu nhiều hơn CPU, bộ nhớ, không gian ổ đĩa lưu trữ cục bộ hay kết nối mạng từ các máy chủ. Từ góc nhìn của Rancher, một máy ảo từ một nhà cung cấp dịch vụ cloud và một máy chủ bare metal server được coi là như nhau.
-
-##3. Các tính năng chính
-Các tính năng chính của Rancher bao gồm
-<ul>
-<li>1. Mạng Cross-host. Rancher tạo một phần mềm định nghĩa mạng cho mỗi môi trường, cho phép kết nối an toàn giữa các container thông qua các host và các cloud</li>
-<li>2. Cân bằng tải Container. Rancher cung cấp đầy đủ, dịch vụ cân bằng tải elastic để phân tán giao thông giữa các container hay các dịch vụ. Dịch vụ cân bằng tải làm việc thông quan nhiều cloud</li>
-<li>3. Dịch vụ lưu trữ khăng khít. Rancher hỗ trợ dịch vụ orchestrating Persistent Storage cho Docker, làm cho nó có thể cho phép các nhà phát triển triển khai lưu trữ đáng tin cậy kết hợp với các ứng dụng trong container. tính năng mới được xây dựng trên Docker 1.9 khả năng kết nối volume, làm cho nó dễ dàng hơn cho các nhà phát triển để chạy các ứng dụng đòi hỏi phải có cơ sở dữ liệu trạng thái và lưu trữ liên tục.</li>
-<li>4. Phát hiện dịch vụ: Rancher thực hiện một chức năng phát hiện dịch vụ dựa trên DNS được phân phối với việc kiểm tra trạng thái tích hợp cho phép container để tự động đăng ký như các dịch vụ cũng như các dịch vụ để tự động phát hiện nhau qua mạng/</li>
-<li>5. Nâng cấp dịch vụ: Rancher làm cho nó dễ dàng cho người dùng nâng cấp các dịch vụ container hiện có, bằng cách nhân bản dịch vụ và chuyển hướng các yêu cầu dịch vụ. Điều này làm cho nó có thể được đảm bảo đối với các dịch vụ cũ còn phục thuộc trước khi chuyển sang các dịch vụ mới được nâng cấp.</li>
-<li>6. Quản lý tài nguyên: Rancher hỗ trợ Docker machine: một công cụ mạnh mẽ để trích lập dự phòng máy chủ trực tiếp từ các nhà cung cấp cloud. Rancher sau đó giám sát tài nguyên máy chủ và quản lý triển khai container.</li>
-<li>7. Multi-tenancy và quản lý user: Rancher được thiết kế cho nhiều người dùng và cho phép tổ chức để cộng tác trong suốt vòng đời ứng dụng. Bằng cách kết nối với các dịch vụ đã tồn tại, Rancher cho phép những người dùng tạo phát triển riêng biệt, kiểm tra và môi trường sản phẩm và mời các đồng nghiệp của họ để quản lý tài nguyên và ứng dụng.</li>
-<li>8. Nhiều phương tiện Orchestration. Rancher hỗ trợ khả năng cho phép người dùng được chọn mặc định Cattle, Kubernetes hay Docker Swarm như một cố máy quản lý dàn nhạc cho container của họ trong khi tạo ra môi trường. Điều này sẽ cho phép người dùng lựa chọn </li>
-</ul>
+### Phần mềm Rancher gồm 4 thành phần chính:
+1. Infrastructure Orchestration (Hạ tầng kiểu dàn nhạc)
+Rancher thực hiện tính toán các tài nguyên dưới dạng thô từ pulic cloud hay private cloud trên các máy chủ Linux. Mỗi máy chủ Linux có thể là các máy ảo, hay máy chủ vật lý. Rancher không sử dụng nhiều CPU, memory, local disk storage, và kết nối mạng từ các máy chủ. Từ quan điểm của Rancher, một máy VM từ nhà cung cấp cloud và máy chủ nguyên bản là như nhau.
+Rancher thực hiện một lớp di động của nền tảng các dịch vụ được thiết kế đặc biệt để vận hành các container application. Nền tảng dịch vụ Rancher bao gồm mạng, kho lưu trữ, cân bằng tải, DNS, và an toàn. Nền tảng dịch vụ Rancher thường được triển khai như một container, vì thế các nền tảng tương tự Rancher có thể chạy trên bất kỳ máy chủ Linux từ bất kì cloud nào.
+2. Container Orchestration and Scheduling (Dàn nhạc cho Container và lập lịch)
+Nhiều người dùng chọn chạy container application sử dụng một container orchestration và scheduling framework. Rancher bao gồm một hệ thống phân tán của nhiều container orchestration phổ biến và các scheduling framework hiện nay, bao gồm Docker Swarm, Kubernetest, và Mesos. Người dùng có thể tạo nhiều cụm Swarm hay Kubernetes. Họ có thể sử dụng các công cụ Native Swarm và Kubernetes để quản lý các ứng dụng của họ.
+Phần vượt trội hơn so với Swarm, Kubernetes, và Mesos của Rancher là hỗ trợ container orchestration và scheduling framework của chính nó được gọi là Cattle. Cattle đã được thiết kể như là một tiện ích cho Docker Swarm. Như Docker Swarm tiếp tục phát triển, Cattle và Swarm bắt đầu phân kỳ. Rancher sẽ hỗ trợ Cattle và Swarm như như các framework riêng trong tương lai. Cattle được sử dụng rộng rãi bởi Rancher để dàn xếp các nền tảng dịch vụ cũng như thiết lập, quản lý, nâng cấp cụm Swarm, Kubernetes, và Mesos
+3. Application Catalog (Mục lục ứng dụng)
+Người dùng Rancher có thể phát triển một cụm ứng dụng gồm nhiều ứng dụng một cách toàn vẹn từ application catalog với một click chuột. Người dùng có thể quản lý việc phát triển ứng dụng và thực hiện nâng cấp toàn bộ từ các phiên bản mới hơn từ các ứng dụng có sẵn. Rancher duy trì một danh mục công cộng bao gồm các sứng dụng phổ biến được đóng góp bởi cộng đồng Rancher. Người dùng Rancher có thể tạo cho họ các private catalog riêng.
+4. Enterprise-Grade Control (Kiểm soát cấp doanh nghiệp)
+Rancher hỗ trợ tương thích với các plugin xác thực người dùng và đi kèm với xác thực người dùng được xây dựng từ trước như Active Directory, LDAP, và GitHub. Rancher hỗ trợ Role-based Access Control (RBAC) tại các cấp độ của Environments, cho phép người dùng và nhóm người dùng được chia sẻ hay chặn truy cập với example, development và production environment.
+Hình dưới minh họa các thành phần chính và tính năng của Rancher
